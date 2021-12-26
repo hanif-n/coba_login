@@ -10,6 +10,7 @@ class LoginTextField extends StatefulWidget {
     this.icon,
     this.prefixIcon,
     this.border = const OutlineInputBorder(),
+    this.validator,
   }) : super(key: key);
 
   final EdgeInsets padding;
@@ -19,13 +20,13 @@ class LoginTextField extends StatefulWidget {
   final IconData? icon;
   final IconData? prefixIcon;
   final InputBorder border;
+  final FormFieldValidator<String>? validator;
 
   @override
   _LoginTextFieldState createState() => _LoginTextFieldState();
 }
 
 class _LoginTextFieldState extends State<LoginTextField> {
-  
   bool _isTextHidden = true;
 
   @override
@@ -38,21 +39,26 @@ class _LoginTextFieldState extends State<LoginTextField> {
         decoration: InputDecoration(
           labelText: widget.labelText,
           border: widget.border,
-          icon: widget.icon == null ? null : Icon(
-            widget.icon,
-          ),
-          prefixIcon: widget.prefixIcon == null ? null : Icon(
-            widget.prefixIcon,
-          ),
+          icon: widget.icon == null
+              ? null
+              : Icon(
+                  widget.icon,
+                ),
+          prefixIcon: widget.prefixIcon == null
+              ? null
+              : Icon(
+                  widget.prefixIcon,
+                ),
           suffixIcon: widget.obscuretext ? _visibilityToggle() : null,
         ),
+        validator: widget.validator,
       ),
     );
   }
 
-  Widget _visibilityToggle(){
+  Widget _visibilityToggle() {
     return GestureDetector(
-      onTap : (){
+      onTap: () {
         setState(() {
           _isTextHidden = !_isTextHidden;
         });
